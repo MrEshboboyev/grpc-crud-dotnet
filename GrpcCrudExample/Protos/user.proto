@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcCrudExample";
+
+package user;
+
+// The User service definition
+service UserService {
+  // Create a new user
+  rpc CreateUser (CreateUserRequest) returns (UserResponse);
+  
+  // Get user by ID
+  rpc GetUser (GetUserRequest) returns (UserResponse);
+  
+  // Update existing user
+  rpc UpdateUser (UpdateUserRequest) returns (UserResponse);
+  
+  // Delete user by ID
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+  
+  // Get all users
+  rpc GetAllUsers (GetAllUsersRequest) returns (GetAllUsersResponse);
+}
+
+// User message
+message User {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  int32 age = 4;
+  string phone = 5;
+}
+
+// Request messages
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  int32 age = 3;
+  string phone = 4;
+}
+
+message GetUserRequest {
+  int32 id = 1;
+}
+
+message UpdateUserRequest {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  int32 age = 4;
+  string phone = 5;
+}
+
+message DeleteUserRequest {
+  int32 id = 1;
+}
+
+message GetAllUsersRequest {
+  // Empty for now, could add pagination later
+}
+
+// Response messages
+message UserResponse {
+  bool success = 1;
+  string message = 2;
+  User user = 3;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetAllUsersResponse {
+  bool success = 1;
+  string message = 2;
+  repeated User users = 3;
+}
